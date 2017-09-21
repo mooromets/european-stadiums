@@ -18,4 +18,12 @@ cityFile <- "data/cities.csv"
 R.utils::gunzip(filename = paste0(cityFile, ".gz"), remove = FALSE)
 city <- read.csv(cityFile)
 file.remove(cityFile)
+stad <- left_join(stad, city, by = c("ascii" = "City"))
+stad <- na.omit(stad)
+df <- data.frame(lat = stad$Latitude, lng = stad$Longitude)
+clr <- c("#00FF00", "#FF0000", "#0000FF")
+df %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addCircleMarkers(popup = stad$Stadium, weight = 1, color = sample(clr, dim(stad)[1], replace = TRUE))
 ```
