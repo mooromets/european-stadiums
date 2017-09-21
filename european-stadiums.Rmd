@@ -17,10 +17,12 @@ cityFile <- "data/cities.csv"
 city <- read.csv(cityFile)
 
 # get lat-lng for each stadium from cities data
+require(dplyr)
 stad <- left_join(stad, city, by = c("ascii" = "City"))
 stad <- na.omit(stad)
 
 # prepare data for map
+require(leaflet)
 df <- data.frame(lat = stad$Latitude, lng = stad$Longitude)
 df$lat <- jitter(df$lat, 5)
 df$lng <- jitter(df$lng, 5)
