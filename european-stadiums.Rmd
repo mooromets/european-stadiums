@@ -1,0 +1,21 @@
+---
+title: "European Stadiums"
+author: "Sergey Sambor"
+date: "September 21, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+source("./data-clean.R")
+stad <- read.csv("data/stadiums.csv")
+stad$Capacity <- as.numeric(sub(",", "", substr(as.character(stad$Capacity), 1, 6)))
+require(R.utils)
+cityFile <- "data/cities.csv"
+R.utils::gunzip(filename = paste0(cityFile, ".gz"), remove = FALSE)
+city <- read.csv(cityFile)
+file.remove(cityFile)
+```
