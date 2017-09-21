@@ -6,24 +6,31 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```
 
 ```{r}
 source("./data-clean.R")
 stad <- read.csv("data/stadiums.csv")
 stad$Capacity <- as.numeric(sub(",", "", substr(as.character(stad$Capacity), 1, 6)))
-require(R.utils)
 cityFile <- "data/cities.csv"
-R.utils::gunzip(filename = paste0(cityFile, ".gz"), remove = FALSE)
 city <- read.csv(cityFile)
-file.remove(cityFile)
+
+# get lat-lng for each stadium from cities data
 stad <- left_join(stad, city, by = c("ascii" = "City"))
 stad <- na.omit(stad)
+
+# prepare data for map
 df <- data.frame(lat = stad$Latitude, lng = stad$Longitude)
-clr <- c("#00FF00", "#FF0000", "#0000FF")
+df$lat <- jitter(df$lat, 5)
+df$lng <- jitter(df$lng, 5)
+clr <- c("#3c78d8", "#674ea7", "#6aa84f", "#e69138", "#cc0000")
 df %>% 
   leaflet() %>% 
   addTiles() %>% 
-  addCircleMarkers(popup = stad$Stadium, weight = 1, color = sample(clr, dim(stad)[1], replace = TRUE))
+  addCircleMarkers(popup = paste(stad$Stadium, stad$Capacity, stad$City, sep = ", "), 
+                   weight = 1, 
+                   color = sample(clr, dim(stad)[1], replace = TRUE),
+                   opacity = 0.75,
+                   fillOpacity = 0.5)
 ```
