@@ -27,6 +27,8 @@ df <- data.frame(lat = stad$Latitude, lng = stad$Longitude)
 df$lat <- jitter(df$lat, 5)
 df$lng <- jitter(df$lng, 5)
 clr <- c("#3c78d8", "#674ea7", "#6aa84f", "#e69138", "#cc0000")
+```
+```{r fig.width=10, fig.height=8}
 df %>% 
   leaflet() %>% 
   addTiles() %>% 
@@ -34,5 +36,6 @@ df %>%
                    weight = 1, 
                    color = sample(clr, dim(stad)[1], replace = TRUE),
                    opacity = 0.75,
-                   fillOpacity = 0.5)
+                   fillOpacity = 0.5,
+                   radius = ifelse(stad$Capacity > 20000, stad$Capacity/5000, 4))
 ```
