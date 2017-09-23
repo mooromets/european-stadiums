@@ -5,7 +5,7 @@ csvOutput <- "data/cities.csv"
 uefaCodes <- tolower(c("AL", "AD", "AM", "AT", "BY", "BE", "BA", "BG", "CH", 
             "CY", "CZ", "DE", "DK", "EE", "ES", "FO", "FI", "FR", "GB", "GE", 
             "GI", "GR", "HU", "HR", "IE", "IS", "IT", "LT", "LU", "LV", "PL", 
-            "MC", "MK", "MT", "NO", "NL", "PO", "PT", "RO", "RU", "SE", 
+            "MC", "MK", "MT", "NO", "NL", "PO", "PT", "RO", "RU", "SE", "RS",
             "SI", "SK", "SM", "TR", "UA", "VA", "AZ", "KZ", "IL"))
 
 if (!file.exists(csvOutput)) {

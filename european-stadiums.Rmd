@@ -30,7 +30,8 @@ clr <- c("#3c78d8", "#674ea7", "#6aa84f", "#e69138", "#cc0000")
 ```
 ```{r fig.width=10, fig.height=6}
 df %>% 
-  leaflet() %>% 
+  leaflet() %>%
+  #addProviderTiles(providers$OpenStreetMap) %>%
   addTiles() %>% 
   addCircleMarkers(popup = paste(stad$Stadium, stad$Capacity, stad$City, sep = ", "), 
                    weight = 1, 
