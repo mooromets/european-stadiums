@@ -19,6 +19,7 @@ city <- read.csv(cityFile)
 # get lat-lng for each stadium from cities data
 require(dplyr)
 stad <- left_join(stad, city, by = c("ascii" = "City"))
+x<-stad
 stad <- na.omit(stad)
 
 # prepare data for map
